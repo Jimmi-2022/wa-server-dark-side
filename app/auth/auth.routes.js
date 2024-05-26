@@ -1,9 +1,9 @@
-// routes/user.routes.js
+// routes/auth.routes.js
 
-import express from 'express';
-import { login } from './user.controller.js';
+import express from 'express'
+import { login } from './auth.controller.js'
 
-const router = express.Router();
+const router = express.Router()
 
 /**
  * POST /api/auth/login
@@ -11,6 +11,6 @@ const router = express.Router();
  * @param {Object} req - Экземпляр запроса Express
  * @param {Object} res - Экземпляр ответа Express
  */
-router.post('/login', login);
+router.post('/login', login)
 
-export default router;
+export default router

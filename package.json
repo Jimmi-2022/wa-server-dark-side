@@ -1,27 +1,29 @@
 {
-  "name": "workout-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  },
-  "keywords": [
-    "workout",
-    "app"
-  ],
-  "author": "[ser-evtushe]",
-  "license": "ISC",
-  "dependencies": {
-    "chalk": "^5.3.0",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.1",
-    "prettier": "^3.2.5"
-  }
+	"name": "workout-app",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "node server.js",
+		"dev": "nodemon server.js",
+		"format": "prettier --write ."
+	},
+	"keywords": [
+		"workout",
+		"app"
+	],
+	"author": "[ser-evtushe]",
+	"license": "ISC",
+	"dependencies": {
+		"chalk": "^5.3.0",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"morgan": "^1.10.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.1",
+		"prettier": "^3.2.5",
+		"prettier-plugin-import-sort": "^0.0.7"
+	}
 }
