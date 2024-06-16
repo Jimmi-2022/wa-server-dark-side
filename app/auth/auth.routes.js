@@ -1,16 +1,12 @@
-// routes/auth.routes.js
-
 import express from 'express'
-import { login } from './auth.controller.js'
+import { authenticateUser, getProfile, registerUser } from './auth.controller.js'
+import { protect } from '../middlewares/authMiddleware.js'
 
 const router = express.Router()
 
-/**
- * POST /api/auth/login
- * Маршрут для входа пользователя
- * @param {Object} req - Экземпляр запроса Express
- * @param {Object} res - Экземпляр ответа Express
- */
-router.post('/login', login)
+router.post('/register', registerUser)
+router.post('/login', authenticateUser)
+router.get('/profile', protect, getProfile) // Защищенный маршрут для получения профиля пользователя
 
 export default router
+

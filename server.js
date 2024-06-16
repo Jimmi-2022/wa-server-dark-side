@@ -1,7 +1,10 @@
 import express from 'express'
-import authRouter from './app/auth/auth.routes.js'
 import dotenv from 'dotenv'
 import chalk from 'chalk'
+import workoutRoutes from './app/workout/workout.routes.js'
+import exerciseRoutes from './app/exercise/exercise.routes.js'
+import userRoutes from './app/user/user.routes.js'
+import authRoutes from './app/auth/auth.routes.js'
 
 // Загружаем переменные окружения из .env файла
 dotenv.config()
@@ -18,18 +21,17 @@ const startServer = async () => {
 		app.use(morgan.default('dev'))
 	}
 
-	/**
-	 * GET /api
-	 * Обработчик для корневого маршрута API
-	 * @param {Object} req - Экземпляр запроса Express
-	 * @param {Object} res - Экземпляр ответа Express
-	 */
-	app.get('/', (req, res) => {
-		res.send('Welcome to the Workout App API')
-	})
-
 	// Маршруты для аутентификации
-	app.use('/api/auth', authRouter)
+	app.use('/api/auth', authRoutes)
+
+	// Маршруты для пользователей
+	app.use('/api/users', userRoutes)
+
+	// Маршруты для тренировок
+	app.use('/api/workouts', workoutRoutes)
+
+	// Маршруты для упражнений
+	app.use('/api/exercises', exerciseRoutes)
 
 	app.listen(port, () => {
 		console.log(chalk.green(`Server running at http://localhost:${port}`))
