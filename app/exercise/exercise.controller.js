@@ -43,8 +43,8 @@ export const createExercise = asyncHandler(async (req, res) => {
 	res.status(201).json(exercise)
 })
 
-//** Description: Create user's exercises
-//** Router: GET /api/exercises
+//** Description: Get user's exercise by workout id
+//** Router: GET /api/exercises/{{workoutId}}
 //** Access: Private
 export const getExerciseById = asyncHandler(async (req, res) => {
 	const exercise = await prisma.exercise.findUnique({

@@ -15,6 +15,8 @@ const protect = asyncHandler(async (req, res, next) => {
 			token = req.headers.authorization.split(' ')[1]
 
 			// Верификация токена
+
+			// Верификация токена
 			const decoded = jwt.verify(token, JWT_KEY)
 
 			// Получение пользователя из базы данных и добавление его в запрос

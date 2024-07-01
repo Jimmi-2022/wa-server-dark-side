@@ -1,7 +1,9 @@
 import asyncHandler from 'express-async-handler'
 import prisma from '../../prisma/client.js'
-import { v4 as uuidv4 } from 'uuid'
 
+//** Description: Get workouts
+//** Router: GET /api/workouts
+//** Access: Private
 export const getWorkouts = asyncHandler(async (req, res) => {
 	const workouts = await prisma.workout.findMany({
 		where: { userId: req.user.id },
@@ -11,19 +13,20 @@ export const getWorkouts = asyncHandler(async (req, res) => {
 	res.status(200).json(workouts)
 })
 
+//** Description: Create workout
+//** Router: POST /api/workouts
+//** Access: Private
 export const createWorkout = asyncHandler(async (req, res) => {
 	const { title, description, userId, exercises } = req.body
 
 	// Создание воркаута вместе с упражнениями
 	const workout = await prisma.workout.create({
 		data: {
-			id: uuidv4(),
 			title,
 			description,
 			userId,
 			exercises: {
 				create: exercises.map(exercise => ({
-					id: uuidv4(),
 					...exercise,
 					userId // Добавляем userId к каждому упражнению
 				}))
@@ -37,9 +40,12 @@ export const createWorkout = asyncHandler(async (req, res) => {
 	res.status(201).json(workout)
 })
 
+//** Description: Get workout by id
+//** Router: GET /api/workouts/:id
+//** Access: Private
 export const getWorkoutById = asyncHandler(async (req, res) => {
 	const workout = await prisma.workout.findUnique({
-		where: { id: req.params.id },
+		where: { id: parseInt(req.params.id) },
 		include: { exercises: true }
 	})
 
@@ -51,9 +57,13 @@ export const getWorkoutById = asyncHandler(async (req, res) => {
 	res.status(200).json(workout)
 })
 
+
+//** Description: Delete workout by id
+//** Router: DELETE /api/workouts/:id
+//** Access: Private
 export const deleteWorkout = asyncHandler(async (req, res) => {
 	const workout = await prisma.workout.findUnique({
-		where: { id: req.params.id }
+		where: { id: parseInt(req.params.id) }
 	})
 
 	if (!workout) {
@@ -63,18 +73,21 @@ export const deleteWorkout = asyncHandler(async (req, res) => {
 
 	// Удаляем все упражнения, связанные с этой тренировкой
 	await prisma.exercise.deleteMany({
-		where: { workoutId: req.params.id }
+		where: { workoutId: parseInt(req.params.id) }
 	})
 
 	// Удаляем тренировку
 	await prisma.workout.delete({
-		where: { id: req.params.id }
+		where: { id: parseInt(req.params.id) }
 	})
 
 	res.status(200).json({ message: 'Workout deleted successfully' })
 })
 
-// Новый контроллер для удаления всех тренировок пользователя
+
+//** Description: Delete all workouts
+//** Router: DELETE /api/workouts
+//** Access: Private
 export const deleteAllWorkouts = asyncHandler(async (req, res) => {
 	// Удаляем все упражнения, связанные с тренировками пользователя
 	await prisma.exercise.deleteMany({

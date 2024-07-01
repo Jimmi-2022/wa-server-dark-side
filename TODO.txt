@@ -1,8 +1,8 @@
 [X] Middleware ErrorHandler, notFound
 [X] Импортировать middleware
-[] UserFields utils
-[?] desc, route, access
-[] read status codes
+[X] UserFields utils
+[X] desc, route, access
+[X] read status codes
 [X] generate token
 [] read docs
     Frontend:
@@ -15,4 +15,8 @@
         [] PostgreSQL
         [] Prisma
         [] JWT
-[] Переименовать названия файлов
+[X] Переименовать названия файлов
+
+[] validate token on site jwt
+
+

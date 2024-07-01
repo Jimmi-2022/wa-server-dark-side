@@ -28,6 +28,11 @@ export const registerUser = asyncHandler(async (req, res) => {
 			email,
 			name,
 			password: hashedPassword // Сохраняем захешированный пароль
+		},
+		select: {
+			id: true,
+			email: true,
+			name: true
 		}
 	})
 
