@@ -36,7 +36,7 @@ export const getUserById = asyncHandler(async (req, res) => {
 // Функция для удаления пользователя
 export const deleteUser = asyncHandler(async (req, res) => {
 	const user = await prisma.user.findUnique({
-		where: { id: req.params.id }
+		where: { id: parseInt(req.params.id) } // Преобразование id в число, если оно строковое
 	})
 
 	if (!user) {
@@ -44,9 +44,15 @@ export const deleteUser = asyncHandler(async (req, res) => {
 		throw new Error('User not found')
 	}
 
-	await prisma.user.delete({
-		where: { id: req.params.id }
+	// Удаление всех тренировок пользователя
+	await prisma.workout.deleteMany({
+		where: { userId: parseInt(req.params.id) }
 	})
 
-	res.status(200).json({ message: 'User deleted successfully' })
+	// Удаление пользователя
+	await prisma.user.delete({
+		where: { id: parseInt(req.params.id) }
+	})
+
+	res.status(200).json({ message: 'User and associated workouts deleted successfully' })
 })

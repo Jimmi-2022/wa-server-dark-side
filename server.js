@@ -5,6 +5,7 @@ import workoutRoutes from './app/workout/workout.routes.js'
 import exerciseRoutes from './app/exercise/exercise.routes.js'
 import userRoutes from './app/user/user.routes.js'
 import authRoutes from './app/auth/auth.routes.js'
+import { errorHandler, notFound } from './app/middlewares/error.middleware.js'
 
 // Загружаем переменные окружения из .env файла
 dotenv.config()
@@ -32,6 +33,12 @@ const startServer = async () => {
 
 	// Маршруты для упражнений
 	app.use('/api/exercises', exerciseRoutes)
+
+	// Middleware для обработки ненайденных маршрутов
+	app.use(notFound)
+
+	// Middleware для обработки ошибок
+	app.use(errorHandler)
 
 	app.listen(port, () => {
 		console.log(chalk.green(`Server running at http://localhost:${port}`))

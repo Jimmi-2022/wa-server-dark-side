@@ -1,6 +1,6 @@
 import express from 'express'
 import { createExercise, deleteExercise, getExerciseById, getExercises } from './exercise.controller.js'
-import { protect } from '../middlewares/authMiddleware.js' // Импортируйте мидлвару
+import { protect } from '../middlewares/protect.middleware.js' // Импортируйте мидлвару
 
 const router = express.Router()
 

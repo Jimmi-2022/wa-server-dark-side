@@ -1,6 +1,6 @@
 import express from 'express'
 import { createWorkout, deleteAllWorkouts, deleteWorkout, getWorkoutById, getWorkouts } from './workout.controller.js'
-import { protect } from '../middlewares/authMiddleware.js' // Импортируйте мидлвару
+import { protect } from '../middlewares/protect.middleware.js' // Импортируйте мидлвару
 
 const router = express.Router()
 

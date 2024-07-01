@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(uuid())
+  id        Int        @id @default(autoincrement())
   email     String     @unique
   name      String?
   password  String
@@ -23,23 +23,23 @@ model User {
 }
 
 model Workout {
-  id          String     @id @default(uuid())
+  id          Int        @id @default(autoincrement())
   title       String
   description String
   date        DateTime   @default(now())
-  userId      String // Внешний ключ для связи с моделью User
+  userId      Int // Внешний ключ для связи с моделью User
   user        User       @relation(fields: [userId], references: [id])
   exercises   Exercise[] // Связь один ко многим с моделью Exercise
 }
 
 model Exercise {
-  id          String  @id @default(uuid())
+  id          Int     @id @default(autoincrement())
   name        String
   description String
   sets        Int
   reps        Int
-  workoutId   String // Внешний ключ для связи с моделью Workout
+  workoutId   Int // Внешний ключ для связи с моделью Workout
   workout     Workout @relation(fields: [workoutId], references: [id])
-  userId      String // Внешний ключ для связи с моделью User
+  userId      Int // Внешний ключ для связи с моделью User
   user        User    @relation(fields: [userId], references: [id])
 }

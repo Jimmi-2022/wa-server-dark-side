@@ -1,0 +1,18 @@
+[X] Middleware ErrorHandler, notFound
+[X] Импортировать middleware
+[] UserFields utils
+[?] desc, route, access
+[] read status codes
+[X] generate token
+[] read docs
+    Frontend:
+        [] React
+        [] Axios
+        [] TanStack Query
+        [] SCSS
+    Backend:
+        [] Express.js
+        [] PostgreSQL
+        [] Prisma
+        [] JWT
+[] Переименовать названия файлов

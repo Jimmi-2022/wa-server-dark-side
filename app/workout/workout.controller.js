@@ -4,24 +4,33 @@ import { v4 as uuidv4 } from 'uuid'
 
 export const getWorkouts = asyncHandler(async (req, res) => {
 	const workouts = await prisma.workout.findMany({
-		where: { userId: req.user.id }
+		where: { userId: req.user.id },
+		include: { exercises: true }
 	})
 
 	res.status(200).json(workouts)
 })
 
 export const createWorkout = asyncHandler(async (req, res) => {
-	const { title, description, exercises } = req.body
+	const { title, description, userId, exercises } = req.body
 
+	// Создание воркаута вместе с упражнениями
 	const workout = await prisma.workout.create({
 		data: {
 			id: uuidv4(),
 			title,
 			description,
-			userId: req.user.id,
+			userId,
 			exercises: {
-				create: exercises
+				create: exercises.map(exercise => ({
+					id: uuidv4(),
+					...exercise,
+					userId // Добавляем userId к каждому упражнению
+				}))
 			}
+		},
+		include: {
+			exercises: true // Включаем упражнения в возвращаемый ответ
 		}
 	})
 

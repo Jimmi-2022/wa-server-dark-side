@@ -1,10 +1,11 @@
 import asyncHandler from 'express-async-handler'
-import { generateToken } from './token.js'
+import { generateToken } from './generate-token.js'
 import prisma from '../../prisma/client.js'
-import { v4 as uuidv4 } from 'uuid'
 import bcrypt from 'bcryptjs'
 
-// Контроллер для регистрации пользователя
+//** Description: Register users
+//** Router: POST /api/auth/register
+//** Access: Public
 export const registerUser = asyncHandler(async (req, res) => {
 	const { email, name, password } = req.body
 
@@ -24,7 +25,6 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 	const user = await prisma.user.create({
 		data: {
-			id: uuidv4(),
 			email,
 			name,
 			password: hashedPassword // Сохраняем захешированный пароль
@@ -44,7 +44,9 @@ export const registerUser = asyncHandler(async (req, res) => {
 	})
 })
 
-// Контроллер для аутентификации пользователя
+//** Description: Login users
+//** Router: POST /api/auth/login
+//** Access: Public
 export const authenticateUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body
 
@@ -79,7 +81,9 @@ export const authenticateUser = asyncHandler(async (req, res) => {
 	})
 })
 
-// Получение профиля пользователя
+//** Description: Get user's profile
+//** Router: GET /api/auth/profile
+//** Access: Private
 export const getProfile = asyncHandler(async (req, res) => {
 	const user = await prisma.user.findUnique({
 		where: { id: req.user.id },
