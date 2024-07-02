@@ -17,6 +17,10 @@
         [] JWT
 [X] Переименовать названия файлов
 
-[] validate token on site jwt
+[X] validate token on site jwt(token-generate)
+[X] decode token on jwt.io
+[X] добавить createdAt и updatedAt images
+
+[] Поправить юзер фильдс только для юзера.
 
 

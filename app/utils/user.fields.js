@@ -13,5 +13,7 @@ export const UserFields = {
 	sets: true,
 	reps: true,
 	workoutId: true,
-	workout: true
+	workout: true,
+	createdAt: true,
+	updatedAt: true
 }

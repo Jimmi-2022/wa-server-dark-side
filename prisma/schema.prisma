@@ -20,26 +20,32 @@ model User {
   password  String
   workouts  Workout[] // Связь один ко многим с моделью Workout
   exercises Exercise[] // Связь один ко многим с моделью Exercise
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  images    String[]
 }
 
 model Workout {
   id          Int        @id @default(autoincrement())
   title       String
   description String
-  date        DateTime   @default(now())
   userId      Int // Внешний ключ для связи с моделью User
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
   user        User       @relation(fields: [userId], references: [id])
   exercises   Exercise[] // Связь один ко многим с моделью Exercise
 }
 
 model Exercise {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   description String
   sets        Int
   reps        Int
   workoutId   Int // Внешний ключ для связи с моделью Workout
-  workout     Workout @relation(fields: [workoutId], references: [id])
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  workout     Workout  @relation(fields: [workoutId], references: [id])
   userId      Int // Внешний ключ для связи с моделью User
-  user        User    @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
 }

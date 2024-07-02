@@ -27,12 +27,9 @@ export const registerUser = asyncHandler(async (req, res) => {
 		data: {
 			email,
 			name,
-			password: hashedPassword // Сохраняем захешированный пароль
-		},
-		select: {
-			id: true,
-			email: true,
-			name: true
+			password: hashedPassword, // Сохраняем захешированный пароль
+			createdAt: new Date(),
+			updatedAt: new Date()
 		}
 	})
 
@@ -44,7 +41,9 @@ export const registerUser = asyncHandler(async (req, res) => {
 		user: {
 			id: user.id,
 			email: user.email,
-			name: user.name
+			name: user.name,
+			createdAt: user.createdAt,
+			updatedAt: user.updatedAt
 		}
 	})
 })
@@ -81,7 +80,9 @@ export const authenticateUser = asyncHandler(async (req, res) => {
 		user: {
 			id: user.id,
 			email: user.email,
-			name: user.name
+			name: user.name,
+			createdAt: user.createdAt,
+			updatedAt: user.updatedAt
 		}
 	})
 })
@@ -92,7 +93,7 @@ export const authenticateUser = asyncHandler(async (req, res) => {
 export const getProfile = asyncHandler(async (req, res) => {
 	const user = await prisma.user.findUnique({
 		where: { id: req.user.id },
-		select: { id: true, email: true, name: true }
+		select: { id: true, email: true, name: true, createdAt: true, updatedAt: true }
 	})
 
 	if (!user) {
