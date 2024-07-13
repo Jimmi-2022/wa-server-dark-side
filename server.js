@@ -34,6 +34,12 @@ const startServer = async () => {
 	// Маршруты для упражнений
 	app.use('/api/exercises', exerciseRoutes)
 
+	// Обслуживание статических файлов из папки "public"
+	app.use(express.static('public'))
+
+	// Обслуживание файлов из папки "uploads"
+	app.use('/uploads', express.static('uploads'))
+
 	// Middleware для обработки ненайденных маршрутов
 	app.use(notFound)
 
