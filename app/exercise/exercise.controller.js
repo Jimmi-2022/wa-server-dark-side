@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
-import prisma from '../../prisma/client.js'
 
+import prisma from '../../prisma/client.js'
 
 //** Description: Get user's exercises
 //** Router: GET /api/exercises
@@ -59,6 +59,52 @@ export const getExerciseById = asyncHandler(async (req, res) => {
 	res.status(200).json(exercise)
 })
 
+//** Description: Update a specific exercise
+//** Router: PUT /api/exercises/:id
+//** Access: Private
+export const updateExercise = asyncHandler(async (req, res) => {
+	const { id } = req.params
+	const { name, description, sets, reps, workoutId, userId } = req.body
+
+	// Проверка, существует ли указанное упражнение
+	const exercise = await prisma.exercise.findUnique({
+		where: { id }
+	})
+
+	if (!exercise) {
+		return res.status(404).json({ message: 'Exercise not found' })
+	}
+
+	// Проверка, существует ли указанный workout
+	if (workoutId) {
+		const workout = await prisma.workout.findUnique({
+			where: { id: workoutId }
+		})
+
+		if (!workout) {
+			return res.status(404).json({ message: 'Workout not found' })
+		}
+	}
+
+	// Обновление упражнения
+	const updatedExercise = await prisma.exercise.update({
+		where: { id },
+		data: {
+			name,
+			description,
+			sets,
+			reps,
+			workoutId,
+			userId
+		}
+	})
+
+	res.status(200).json(updatedExercise)
+})
+
+//** Description: Delete a specific exercise
+//** Router: DELETE /api/exercises/:id
+//** Access: Private
 export const deleteExercise = asyncHandler(async (req, res) => {
 	const exercise = await prisma.exercise.findUnique({
 		where: { id: req.params.id }

@@ -4,31 +4,19 @@
 [X] desc, route, access
 [X] read status codes
 [X] generate token
-[] read docs
-    Frontend:
-        [] React
-        [] Axios
-        [] TanStack Query
-        [] SCSS
-    Backend:
-        [] Express.js
-        [] PostgreSQL
-        [] Prisma
-        [] JWT
 [X] Переименовать названия файлов
-
 [X] validate token on site jwt(token-generate)
 [X] decode token on jwt.io
 [X] добавить createdAt и updatedAt images
-
-[] Поправить юзер фильдс только для юзера.
 [X] Добавить картинки папку
-[] Добавить iconPath
+[X] Добавить iconPath
 [X] Добавить статическую папку
-[] Ренализовать обновление упражнения
-[] Реализовать удаление упражнения
 
-8. Модели призма
-[] update exercises
-[] create exercises
-[] prisma exercise and workout
+[X] update exercises
+[X] delete exercises
+[X] create exercises
+[X] prisma exercise and workout
+[] Поправить юзер фильдс только для юзера.
+
+
+pkill -f node

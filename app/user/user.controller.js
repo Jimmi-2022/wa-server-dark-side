@@ -60,5 +60,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 		where: { id: parseInt(req.params.id) }
 	})
 
-	res.status(200).json({ message: 'User and associated workouts deleted successfully' })
+	res
+		.status(200)
+		.json({ message: 'User and associated workouts deleted successfully' })
 })

@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler'
+
 import prisma from '../../prisma/client.js'
 
 //** Description: Get workouts
@@ -57,7 +58,6 @@ export const getWorkoutById = asyncHandler(async (req, res) => {
 	res.status(200).json(workout)
 })
 
-
 //** Description: Delete workout by id
 //** Router: DELETE /api/workouts/:id
 //** Access: Private
@@ -83,7 +83,6 @@ export const deleteWorkout = asyncHandler(async (req, res) => {
 
 	res.status(200).json({ message: 'Workout deleted successfully' })
 })
-
 
 //** Description: Delete all workouts
 //** Router: DELETE /api/workouts

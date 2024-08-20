@@ -1,13 +1,21 @@
 import express from 'express'
-import { createExercise, deleteExercise, getExerciseById, getExercises } from './exercise.controller.js'
-import { protect } from '../middlewares/protect.middleware.js' // Импортируйте мидлвару
+
+import { protect } from '../middlewares/protect.middleware.js'
+
+import {
+	createExercise,
+	deleteExercise,
+	getExerciseById,
+	getExercises,
+	updateExercise
+} from './exercise.controller.js'
 
 const router = express.Router()
 
-router.get('/', protect, getExercises) // Новый маршрут для получения всех упражнений
+router.get('/', protect, getExercises)
 router.post('/', protect, createExercise)
 router.get('/:id', protect, getExerciseById)
-router.delete('/:id', protect, deleteExercise)
+router.put('/:id', updateExercise)
+router.delete('/:id', deleteExercise)
 
 export default router
-
